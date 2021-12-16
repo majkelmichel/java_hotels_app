@@ -1,0 +1,103 @@
+1. Pobranie listy hoteli
+GET http://localhost:8080/api/v1/hotels
+
+
+    "hotels": [
+        {
+            "id": 1,
+            "name": "MegaHotel",
+            "rooms": [
+                {
+                    "id": 1,
+                    "beds": "3",
+                    "price": 30.20
+
+                },
+                {
+                    "id": 2,
+                    "beds": "5",
+                    "price": 40.20
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "HotelHilton",
+            "rooms": [
+                {
+                    "id": 3,
+                    "beds": "1",
+                    "price": 31.20
+                },
+                {
+                    "id": 4,
+                    "beds": "3",
+                    "price": 42.20
+
+2. Wysłanie rezerwacji z danymi osoby składającej rezerwacje
+ POST http://localhost:8080/api/v1/reservations
+
+REQUEST BODY:
+{
+    "roomsReservation": [
+        {
+             "id": 3,
+             "roomId": 1,
+             "days": 5
+         },
+         {
+             "id": 4,
+             "roomId": 1,
+             "days": 5
+         }
+     ],
+    
+    "person": {
+        "name": "Jan Kowalski",
+        "phone": "123456",
+        "address": "Branickiego 34/2",
+        "floor":"1"
+    }
+}
+RESPONSE BODY:
+{
+    "token": "xzvxn"
+}
+
+
+3.Pobranie rezerwacji o konkretnym statusie np: NEW
+GET http://localhost:8080/api/v1/reservations?status=NEW
+REQUEST BODY: ----(BRAK)
+REQUEST PARAMS status : NEW
+REQUEST HEADERS Access-Token:{x1v2}
+RESPONSE BODY:
+{
+    "reservations": [
+        {
+            "id": 1,
+            "status": "NEW",
+           
+             "roomsReservation": [
+                 {
+                     "id": 3,
+                     "roomId": 1,
+                     "days": 14
+                 }
+            ],
+            "person": {
+                "name": "Jan Kowalski",
+                "phone": "123456",
+                "address": "Branickiego 34/2",
+                "floor": 1
+            }
+        }
+    ]
+}
+
+4. Usunięcie konkretnej rezerwacji
+DELETE http://localhost:8080/api/v1/reservations/{reservation-id}
+
+REQUEST BODY: ----(BRAK)
+REQUEST PARAMS: ----------
+REQUEST HEADERS Access-Token:{x1v2}
+RESPONSE BODY:-----------(brak)
